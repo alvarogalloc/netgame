@@ -11,12 +11,15 @@ find_package(
   REQUIRED)
 
 file(GLOB ASSETS ./assets/*)
-file(GLOB SOURCES ./src/*.cpp)
+file(GLOB SOURCES ./src/*.cpp ./include/*.h)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 
 target_link_libraries(
-  ${PROJECT_NAME} PRIVATE sfml-system sfml-audio sfml-graphics sfml-window
-                          "-framework CoreFoundation" "-framework CoreAudio"
+  ${PROJECT_NAME} PRIVATE sfml-system sfml-audio sfml-graphics sfml-window)
+if(APPLE)
+target_link_libraries(
+  ${PROJECT_NAME} PRIVATE "-framework CoreFoundation" "-framework CoreAudio"
                           "-framework AudioUnit")
-target_include_directories(${PROJECT_NAME} PRIVATE "include")
+endif()
+target_include_directories(${PROJECT_NAME} PRIVATE include)
