@@ -18,20 +18,26 @@ std::size_t AssetManager::load(AssetType type, std::string path) {
   auto filepath = m_asset_path + path;
 
   switch (type) {
-  case AssetType::Music: {
+  case AssetType::Music:
     m_tracks.push_back(new Asset<sf::Music>{++m_last_asset_id});
     if (!m_tracks.back()->openFromFile(filepath)) {
       throw std::runtime_error{"Error loading Track: " + filepath};
     }
     break;
-  }
-  case AssetType::Texture: {
+
+  case AssetType::Texture:
     m_textures.push_back(new Asset<sf::Texture>{++m_last_asset_id});
     if (!m_textures.back()->loadFromFile(filepath)) {
       throw std::runtime_error{"Error loading Image: " + filepath};
     }
     break;
-  }
+
+  case AssetType::Font:
+    m_fonts.push_back(new Asset<sf::Font>{++m_last_asset_id});
+    if (!m_fonts.back()->loadFromFile(filepath)) {
+      throw std::runtime_error{"Error loading font: " + filepath};
+    }
+    break;
   }
   return m_last_asset_id;
 }
@@ -60,3 +66,10 @@ template <> Asset<sf::Music> *AssetManager::get(std::size_t id) {
 
   return *std::find_if(m_tracks.begin(), m_tracks.end(), id_match);
 }
+
+template <> Asset<sf::Font> *AssetManager::get(std::size_t id) {
+  auto id_match = [id](const auto &asset) { return asset->id == id; };
+
+  return *std::find_if(m_fonts.begin(), m_fonts.end(), id_match);
+}
+

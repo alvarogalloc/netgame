@@ -5,7 +5,7 @@
 
 namespace netgame {
 
-enum class AssetType : uint8_t { Music, Texture };
+enum class AssetType : uint8_t { Music, Texture, Font };
 
 template <typename T> struct Asset : T {
   constexpr Asset(std::size_t _id) { id = _id; }
@@ -18,6 +18,7 @@ private:
   std::size_t m_last_asset_id{0};
   std::vector<Asset<sf::Texture> *> m_textures{};
   std::vector<Asset<sf::Music> *> m_tracks{};
+  std::vector<Asset<sf::Font> *> m_fonts{};
 
 public:
   AssetManager(const std::string &assets_path) noexcept;
