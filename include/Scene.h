@@ -25,7 +25,7 @@ protected:
   // TODO: add a simpler way to share data with Game class
   // for now just initialize them when calling init()
   AssetManager *m_assets;
-  bool exit;
+  bool exit{false};
 
 private:
   virtual void init(Game *game){};

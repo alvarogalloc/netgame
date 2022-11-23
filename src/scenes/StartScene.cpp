@@ -1,4 +1,5 @@
 #include "AssetManager.h"
+#include "scenes/GameScene.h"
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderTexture.hpp>
@@ -118,6 +119,6 @@ std::unique_ptr<Scene> StartScene::on_exit() {
   for (auto &id : ids) {
     m_assets->unload(id);
   }
-  return std::make_unique<StartScene>();
+  return std::make_unique<GameScene>();
 }
 StartScene::~StartScene() {}
