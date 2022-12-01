@@ -1,6 +1,7 @@
 #include "Animation.h"
 #include "AssetManager.h"
 #include "Game.h"
+#include "scenes/GameScene.h"
 #include "scenes/StartScene.h"
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
@@ -78,7 +79,7 @@
 
 int main() {
   netgame::Game game("capy");
-  game.set_scene(std::make_unique<netgame::StartScene>());
+  game.set_scene(std::make_unique<netgame::GameScene>());
   while (game.running()) {
     game.update();
     game.render();

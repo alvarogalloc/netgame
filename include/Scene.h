@@ -2,6 +2,7 @@
 #include <SFML/Graphics/RenderTexture.hpp>
 #include <SFML/Window/Event.hpp>
 #include <memory>
+#include <string_view>
 
 namespace netgame {
 // fwd declaration
@@ -10,7 +11,7 @@ class AssetManager;
 class Scene {
 public:
   virtual void on_update(float delta) = 0;
-  virtual void on_render(sf::RenderTexture &gfx) = 0;
+  virtual void on_render(sf::RenderTarget &gfx) = 0;
   virtual void on_event(sf::Event &ev) = 0;
   virtual std::unique_ptr<Scene> on_exit() = 0;
   // sf::VideoMode get_window_dimensions() {return};

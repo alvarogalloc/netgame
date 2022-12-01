@@ -35,8 +35,6 @@ private:
   ptr<AssetManager> m_assets;
   ptr<sf::RenderWindow> m_window;
   sf::Event m_ev;
-  sf::RenderTexture m_renderer;
-  sf::Sprite m_renderer_sprite;
   sf::VideoMode m_dimesions;
   sf::Clock m_clock;
 };

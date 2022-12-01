@@ -3,7 +3,7 @@
 
 using namespace netgame;
 
-Animation::Animation(){}
+Animation::Animation() {}
 Animation::Animation(AnimationDescription description)
     : m_description(description) {
   m_sprite.setTexture(*m_description.m_spritesheet);
@@ -31,13 +31,13 @@ void Animation::update(sf::Int32 delta) {
              (m_description.m_cellsize.x * m_description.curr_frame++),
          m_description.startpos.y, m_description.m_cellsize.x,
          m_description.m_cellsize.y});
+    // If debug mode
+// #if !defined(NDEBUG)
+//     std::cout << "[LOG] current frame: " << unsigned(m_description.curr_frame)
+//               << " x: " << m_sprite.getTextureRect().left
+//               << " y: " << m_sprite.getTextureRect().top << '\n';
+// #endif
   }
-  // If debug mode
-#if !defined(NDEBUG)
-  std::cout << "[LOG] current frame: " << unsigned(m_description.curr_frame)
-            << " x: " << m_sprite.getTextureRect().left
-            << " y: " << m_sprite.getTextureRect().top << '\n';
-#endif
 }
 
 sf::Sprite &Animation::get_sprite() { return m_sprite; }

@@ -10,6 +10,7 @@ using namespace netgame;
 
 // called when changing scenes
 void StartScene::init(Game *game) {
+  // m_name = "Start Scene";
   m_assets = game->get_assets();
   auto music_id = m_assets->load(AssetType::Music, "music.ogg");
   auto bg_id = m_assets->load(AssetType::Texture, "bg.png");
@@ -17,7 +18,7 @@ void StartScene::init(Game *game) {
   auto font_id = m_assets->load(AssetType::Font, "BitPotion.ttf");
   auto capy_id = m_assets->load(AssetType::Texture, "capybara.png");
   ids.insert(ids.end(), {music_id, bg_id, play_button_id, font_id, capy_id});
-  m_music =m_assets->get<sf::Music>(music_id);
+  m_music = m_assets->get<sf::Music>(music_id);
   m_music->play();
 
   m_bg_sprite.setTexture(*m_assets->get<sf::Texture>(bg_id));
@@ -92,13 +93,13 @@ void StartScene::on_event(sf::Event &ev) {
     break;
   case sf::Event::MouseButtonReleased:
     // exit if release mouse inside button
+    m_play_button.setTextureRect({0, 0, 26, 17});
+    m_play_button.setOrigin(m_play_button.getTextureRect().width / 2.f,
+                            m_play_button.getTextureRect().height / 2.f);
     if (m_play_button.getGlobalBounds().contains(ev.mouseButton.x,
                                                  ev.mouseButton.y)) {
       exit = true;
     }
-    m_play_button.setTextureRect({0, 0, 26, 17});
-    m_play_button.setOrigin(m_play_button.getTextureRect().width / 2.f,
-                            m_play_button.getTextureRect().height / 2.f);
     break;
   default:
 
@@ -106,19 +107,22 @@ void StartScene::on_event(sf::Event &ev) {
   }
 }
 
-void StartScene::on_render(sf::RenderTexture &gfx) {
+void StartScene::on_render(sf::RenderTarget &gfx) {
   gfx.clear(sf::Color::Green);
   gfx.draw(m_bg_sprite);
   gfx.draw(m_play_button);
   gfx.draw(m_title_text);
   gfx.draw(m_capy_walk.get_sprite());
+  // snapshot = gfx.getTexture().copyToImage();
 }
 
 std::unique_ptr<Scene> StartScene::on_exit() {
   m_music->stop();
+  delete m_music;
   for (auto &id : ids) {
     m_assets->unload(id);
   }
+  // snapshot.saveToFile("Startscene.png");
   return std::make_unique<GameScene>();
 }
 StartScene::~StartScene() {}
