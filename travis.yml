@@ -1,0 +1,19 @@
+language: cpp
+compiler: gcc
+
+os: linux
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-12
+      - ninja
+
+script:
+  - export CC=gcc-12
+  - export CXX=g++-12
+  - cd build
+  - mkdir build
+  - cmake .. -G Ninja
+  - cmake  --build . --target netgame
